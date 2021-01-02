@@ -1,9 +1,6 @@
-title: Strata by HTML5 UP
+title: Santiago Dubov
 description: >
-  **I am Strata**, a super simple
-  responsive site template freebie
-  crafted by [HTML5 UP](http://html5up.net).
-copyright: Untitled
+  Masters student in machine learning with a passion for data science.
 sass:
   sass_dir: assets/sass
 url: http://localhost:4000
