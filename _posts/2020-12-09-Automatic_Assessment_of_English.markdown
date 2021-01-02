@@ -16,11 +16,11 @@ Even native speakers often don’t speak in full sentences, hesitate and repeat 
 
 
 ## The process
-![texture theme preview](/Images/asr.PNG)
+![texture theme preview](/images/asr.PNG)
 
 Firstly, we use and automated speech recognition system (ASR) to transform our speech into a transcript. It’s worth noting that this can also introduce additional transcription errors. Then we pipe this text into a sequence to sequence deep learning model (e.g RNN, LSTM, transformer) to produce a corrected transcript which we can provide to the learner as feedback. Think of it like neural-machine translation, except we are translating from incorrect learner speech to grammatically correct speech. The text has to be first transformed so that each word is assigned a vector called a word embedding before being fed into the model. 
 
-![texture theme preview](/Images/RNN.PNG)
+![texture theme preview](/images/RNN.PNG)
 
 ## The model
 
@@ -53,7 +53,7 @@ The model was trained for 20 epochs using a GPU and then the best epoch was eval
 
 To answer this question we use k-fold cross validation. Fine tuning the CLC and BEA model from before on 80% of the NICT corpus then producing a correction for the other 20%. We do this 5 times then concatenate all the corrections and calculate a GLEU score. We finetune for 3 epochs and then choose the best one. 
 
-![texture theme preview](/Images/cross_validation.png)
+![texture theme preview](/images/cross_validation.png)
 
 | Model data     | &nbsp; &nbsp; &nbsp; NICT   |
 | :-------------:| ------------------:|
