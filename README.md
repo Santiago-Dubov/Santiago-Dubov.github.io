@@ -1,150 +1,101 @@
-# texture
+# Strata for Jekyll
 
-A configurable jekyll theme for simply beautiful blogs.
+A simple, responsive blog theme for the [Jekyll](http://jekyllrb.com) static site generator using [HTML5 UP's Strata](http://html5up.net/strata) design.
 
-**Demo**: [thelehhman.com/texture](https://thelehhman.com/texture)
+![preview](preview.jpg)
 
-![texture theme preview](/screen1.png)
+Browse the [demo](http://davidforster.com/strata-jekyll/).
 
+## How to use
 
-## Installation on Github Pages
+### Quick start
 
-Add this line to your site's `_config.yml`:
-```yaml
-remote_theme: thelehhman/texture
-```
+If you just want to get a blog up & running at [GitHub Pages](https://pages.github.com) then simply fork this repository to your own GitHub account and name the new repository *\<yourgithubusername\>.github.io*. GitHub should then start hosting your site at *http://\<yourrgithubusername\>.github.io/*. If you'd like to use your own domain name you can follow GitHub's guide to using a [custom domain](https://help.github.com/articles/using-a-custom-domain-with-github-pages/).
 
-**NOTE: If you are forking this repo, remove `base_url: /texture` in the `_config.yml` which is required to load the required website assets**
-## Installation
+Edit the `_config.yml` file and use the options available in the theme, as mentioned below in the features section, to customise your site.
 
-Add this line to your Jekyll site's `Gemfile`:
+I recommend Development Seed's awesome [Prose](http://prose.io) editor to write your posts.
 
-```ruby
-gem "texture"
-```
+### Local development
 
-And add this line to your Jekyll site's `_config.yml`:
+If you want to run and develop locally on your own computer then you'll need the Ruby programming language and Jekyll installed. The Jekyll website has a handy [installation guide](http://jekyllrb.com/docs/installation/) in their online documentation. Once installed, you can download or clone this repository and run `bundle exec jekyll serve` from the root.
 
-```yaml
-theme: texture
-```
+## Features
 
-And then execute:
+### Disqus comments
 
-    $ bundle
+[Disqus](https://disqus.com) comments appear beneath posts. Add your Disqus website's shortname to `_config.yml` as `disqus_shortname:`. Leave `disqus_shortname` blank to disable comments completely or add `disqus: disabled` to a post's front matter to disable comments just for that page.
 
-Or install it yourself as:
+### Open Graph (Facebook) and Twitter Card meta tags
 
-    $ gem install texture
+All pages have Open Graph metadata added.
 
-## Usage
+All pages have Twitter Card metadata, though this requires `twitter_username:` to be configured in `_config.yml`. Twitter Card titles are trunacted at 70 characters and descriptions at 200 characters as per Twitter requirements.
 
-The "texture" key in _config.yml is used to customize the theme data.
-```yaml
-texture:
-  title: Adam Denisov
-  tagline: Developer. Designer
-  date_format: "%b %-d, %Y"
+Both Open Graph and Twitter Cards can show images if you specify `image: <image url>` in a page's front matter.
 
-  social_links:
-    twitter: thelehhman
-    github:  thelehhman
-    linkedIn: in/thelehhman # format: locale/username
-```
+### RSS and Atom feeds
 
-**Styling**
+The last 10 posts are available in RSS and Atom format at `rss.xml` and `atom.xml`. Both feeds are linked to from every page's metadata. The feed icon in the footer is configurable by setting `feed_icon:` in `_config.yml` to `rss` or `atom`, or the property can be left blank to remove it completely.
 
-Multiple header styles are supported using the "style" property under texture in `_config.yml`.
+### Feed footer
 
-```yaml
-texture:
-  style: [yellow|red|black|blue|green|purple]
-```
+A footer is added to every post in both the RSS and Atom feeds. This is configurable by editing `_includes/feed-footer.html`.
 
-For example, the blue style looks like this:
+### Sitemap
 
-![texture theme blue](/screen2.png)
+Based on [David Ensinger's sitemap](http://davidensinger.com/2013/11/building-a-better-sitemap-xml-with-jekyll/), supported front matter is:
 
+- `sitemap.exclude: true` for pages, `post.published: false` for posts
+- `sitemap.lastmod` (defaults to the post or page date)
+- `sitemap.changefreq` (defaults to monthly)
+- `sitemap.priority` (defaults to 0.5)
 
-**Texture Picker**
+### Footer social media links
 
-You can toggle the texture picker to show/experiment various textures on your site using the showPicker variable. Remember to make it `false` for production.
+Social media icon links in the footer are enabled by adding or removing values for the following sites in `_config.yml`.
 
-```yaml
-texture:
-  showPicker: [false|true] # show the texture selector(development purposes)
-```
+- Facebook - `facebook_username:`
+- Twitter - `twitter_username:`
+- LinkedIn - `linkedin_username:`
+- Instagram - `instagram_username:`
+- Pinterest - `pinterest_username:`
+- Flickr - `flickr_username:`
+- GitHub - `github_username:`
 
-**Comments (Disqus)**
+You can change the icon order and add more options by editing `_includes/footer.html`. I recommended a maximum number of 5 icons in total (including the feed icon).
 
-Comments on posts can be enabled by specifying your disqus_shortname under texture in `_config.yml`. For example,
-```yaml
-texture:
-  disqus_shortname: games
-```
+### Reading time
 
-**Google Analytics**
+Reading time appears on post pages alongside the date and categories if the time is 1 minute or more, based on a reading rate of 180 words per minute (3 per second).
 
-It can be enabled by specifying your analytics id under texture in `_config.yml`
-```yaml
-texture:
-  analytics_id: '< YOUR ID >'
-```
+### Pagination
 
-**Excerpts**
+Pagination is set at 5 posts per page, this can be altered by changing the `paginate:` property in `_config.yml`
 
-Excerpts can be enabled by adding the following line to your `_config.yml`
-```yaml
-show_excerpts: true
-```
+### Next/Previous posts
 
-**Toggle Navbar**
+The Next and Previous posts are displayed underneath every post (and Disqus comments if enabled) along with their excerpt.
 
-```yaml
-texture:
-  showNav: true
-```
+### Custom 404
 
-**Navigation**
+If you host your site with [GitHub Pages](https://pages.github.com) then a custom 404 page has been added (see `404.md`)
 
-After setting `showNav` to true navigation can be built by adding the following to your `_config.yml`
+### robots.txt and humans.txt
 
-```yaml
-texture:
-  navigation:
-    - title: My Work
-      url: "/my-work"
-    - title: Resume
-      url: "/resume"
-```
+The theme includes a basic robots.txt file which allows all robots to crawl the entire site and directs them to the sitemap.xml file. There is also a humans.txt file giving credit to Myself ([David Forster](http://davidforster.com)) and AJ, the designer of Strata.
 
-**Layouts**
+## Acknowledgements
 
-- Home
-- Page
-- Post
+- [AJ](https://twitter.com/n33co) and [HTML5UP](http://html5up.net) for the design of Strata
+- [David Ensinger](http://davidensinger.com) for a bunch of tips and ideas related to Jekyll
 
-## Contributing
+## Contributions
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/thelehhman/texture. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## Development
-
-To set up your environment to develop this theme, run `bundle install`.
-
-Your theme is setup just like a normal Jekyll site! To test your theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000`. This starts a Jekyll server using your theme. Add pages, documents, data, etc. like normal to test your theme's contents. As you make modifications to your theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
-
-When your theme is released, only the files in `_layouts`, `_includes`, `_sass` and `assets` tracked with Git will be bundled.
-To add a custom directory to your theme-gem, please edit the regexp in `texture.gemspec` accordingly.
-
-## Donation
-If this project help you reduce time to develop, you can give me a cup of coffee :) 
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/thelehhman)
+Issues, Pull Requests, Tweets and Forks are all greatly appreciated!
 
 ## License
 
-The theme is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The Jekyll theme is licensed under the [MIT](http://choosealicense.com/licenses/mit/) License
 
-## More Themes
-[plainwhite](https://github.com/thelehhman/plainwhite-jekyll)
+The Strata design is licensed under the [Creative Commons Attribution 3.0 Unported](http://creativecommons.org/licenses/by/3.0/) license.

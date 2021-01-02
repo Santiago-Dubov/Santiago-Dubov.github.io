@@ -1,40 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  {%- include head.html -%}
-</head>
-<body>
-  <header class="texture-{{ site.texture.style }}">
-    <div class="container">
-      {%- include nav.html -%}
-    </div>
-    {%- include post_header.html -%}  
-  </header>
-  <main>
-    <div class="container">
-      <div class="post-container">
-          {{ content }}
-      </div>
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    {% include head.html %}
+    {% include opengraph.html %}
+    {% include twittercard.html %}
+  </head>
+	<body id="top">
 
-        <!-- Configure Disqus -->
-      {%- if site.texture.disqus_shortname -%}
-        <div id="disqus_thread" style="margin-top:25px"></div>
-        <script>
-          var disqus_config = function () {
-            this.page.url = '{{ page.url | absolute_url }}';
-            this.page.identifier = '{{ page.url | absolute_url }}';
-          };
-          (function() {
-            var d = document, s = d.createElement('script');
-            s.src = 'https://{{ site.texture.disqus_shortname }}.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-          })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-      {%- endif -%}
-    </div>
-  </main>
-  {%- include footer.html -%}
-</body>
+		{% include header.html %}
+
+		<!-- Main -->
+		<div id="main">
+      <article>
+        <header class="major">
+          <h2>{{ page.title }}</h2>
+          <p>
+            <i class="fa fa-calendar"></i> {{ page.date | date: "%d %B %Y" }}{% if page.categories %} on <i class="fa fa-tags"></i> {{ page.categories | array_to_sentence_string }}.{% endif %}
+            {% include readingtime.html %}
+          </p>
+        </header>
+
+        <section>
+          {{ content }}
+        </section>
+      </article>
+
+      {% include disqus.html %}
+
+      {% if page.previous.url or page.next.url %}
+      <hr />
+      <div class="row">
+        <article class="6u 12u$(xsmall) work-item">
+          {% if page.previous.url %}
+          <p>Previous</p>
+  				<h3><a href="{{ page.previous.url }}">{{page.previous.title}}</a></h3>
+  				<p>{{ page.previous.excerpt | strip_html }}</p>
+          {% endif %}
+  			</article>
+  			<article class="6u$ 12u$(xsmall) work-item">
+          {% if page.next.url %}
+          <p>Next</p>
+  				<h3><a href="{{ page.next.url }}">{{page.next.title}}</a></h3>
+  				<p>{{ page.next.excerpt | strip_html }}</p>
+          {% endif %}
+  			</article>
+      </div>
+      {% endif %}
+
+		</div>
+
+    {% include footer.html %}
+    {% include scripts.html %}
+
+	</body>
 </html>

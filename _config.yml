@@ -1,39 +1,22 @@
-title: Santiago Dubov
-author: Santiago-Dubov
-email: sd793@cam.ac.uk
-description: > # this means to ignore newlines until "show_exerpts:"
-  A site for my personal projects. 
-show_excerpts: true # set to true to show excerpts on the homepage
-
-# Minima date format
-# refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
+title: Strata by HTML5 UP
+description: >
+  **I am Strata**, a super simple
+  responsive site template freebie
+  crafted by [HTML5 UP](http://html5up.net).
+copyright: Untitled
 sass:
-  sass_dir: _sass
-
-permalink: /posts/:title/
-texture:
-  title: Santiago Dubov
-  tagline: Masters Student in Computer Engineering 
-  date_format: "%b %-d, %Y"
-  style: black
-  showNav: false
-  showPicker: false
-
-  # generate social links in footer
-  social_links:
-    github:  Santiago-Dubov
-    linkedIn: in/santiago-dubov-9b7052163
-    rss: rss
- 
-
-# If you want to link only specific pages in your header, uncomment
-# this and add the path to the pages in order as they should show up
-#header_pages:
-# - about.md
-
-# Build settings
-remote_theme: thelehhman/texture
-
-plugins:
-  - jekyll-seo-tag
-#  - jekyll-feed
+  sass_dir: assets/sass
+url: http://localhost:4000
+disqus_shortname: stratajekylldemo
+facebook_username:
+twitter_username: "#"
+linkedin_username: "#"
+instagram_username:
+pinterest_username:
+flickr_username:
+github_username:  "#"
+feed_icon: rss
+email: "#"
+gems: [jekyll-paginate]
+paginate_path: "/page/:num/"
+paginate: 5
