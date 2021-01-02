@@ -902,8 +902,8 @@
 		background-attachment:	scroll,								fixed;
 		background-image:		url('images/overlay.png'),			url('../../images/bg.jpg');
 		background-position:	top left,							top left;
-		background-repeat:		no-repeat,							no-repeat;
-		background-size:		auto 100%,							auto 100%;
+		background-repeat:		repeat,								no-repeat;
+		background-size:		auto,								auto ;
 		color: _palette(accent2, fg);
 		height: 100%;
 		left: 0;
