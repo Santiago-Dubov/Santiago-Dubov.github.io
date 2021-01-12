@@ -1,15 +1,15 @@
 ---
 layout: post
 title:  "Alexa skill to aid in english learning"
-date:   2016-02-09 17:15:11 +0000
+date:   2020-12-09 17:15:11 +0000
 categories: jekyll
 image:  /preview.jpg
 ---
 
-[![IMAGE ALT TEXT HERE](https://youtu.be/YPRdAHi6WJ0/0.jpg)](https://youtu.be/YPRdAHi6WJ0)
+[![texture theme preview](https://youtu.be/YPRdAHi6WJ0/0.jpg)](https://youtu.be/YPRdAHi6WJ0)
 
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/E5Jg4Wm9b7o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/E5Jg4Wm9b7o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
