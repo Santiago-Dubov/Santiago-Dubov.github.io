@@ -6,10 +6,10 @@ categories: jekyll
 image:  /preview.jpg
 ---
 
-[![texture theme preview](https://youtu.be/YPRdAHi6WJ0/0.jpg)](https://youtu.be/YPRdAHi6WJ0)
+[![texture theme preview](/images/youtube.PNG)](https://youtu.be/YPRdAHi6WJ0)
 
 
-<iframe width="640" height="360" src="https://youtu.be/YPRdAHi6WJ0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="640" height="360" src="https://www.youtube.com/watch?v=YPRdAHi6WJ0%2F0.jpg&feature=youtu.be" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
