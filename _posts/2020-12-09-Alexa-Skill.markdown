@@ -8,9 +8,9 @@ image:  /preview.jpg
 
 [![texture theme preview](https://youtu.be/YPRdAHi6WJ0/0.jpg)](https://youtu.be/YPRdAHi6WJ0)
 
-<!---
-<iframe width="640" height="360" src="https://www.youtube.com/embed/E5Jg4Wm9b7o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
--->
+
+<iframe width="640" height="360" src="https://youtu.be/YPRdAHi6WJ0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
 To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
