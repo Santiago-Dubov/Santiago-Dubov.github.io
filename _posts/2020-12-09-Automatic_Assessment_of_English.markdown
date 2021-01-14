@@ -63,30 +63,31 @@ The written corpora are taken from examination scripts and language learning web
 
 |         Corpus       |  Written or Spoken | Data size # tokens | GEC labels | non-native|
 |--------------------| -------------------|---------------------|------------|------------|
-|         CLC         |      Written       |       25.0M         |     :heavy_check_mark:       ||
-|        Lang-8       |      Written       |       11.0M         |            |           |
-|        W & I        |      Written       |       800K          |            |           |
-|       LOCNESS       |      Written       |       1.00M         |            |    x      |
-|         NICT        |      Spoken        |       157K          |            |           |
-|        BULATS       |      Spoken        |       64.0K         |            |           |
-|  Switchboard (SWBD) |      Spoken        |       940k          |    x       |    x      |
+|         CLC         |      Written       |       25.0M         |     x     |       x     |
+|        Lang-8       |      Written       |       11.0M         |     x      |     x      |
+|        W & I        |      Written       |       800K          |     x      |    x       |
+|       LOCNESS       |      Written       |       1.00M         |     x      |         |
+|         NICT        |      Spoken        |       157K          |     x      |     x     |
+|        BULATS       |      Spoken        |       64.0K         |     x      |     x      |
+|  Switchboard (SWBD) |      Spoken        |       940k          |            |          |
 
 
-To train these large neural networks we require a very high amount of data. Unfortunately, as we need labelled data to train our model such as a corrected version of our transcript, our sources of data are limited – we can’t just pull text from the internet – we need manually annotated learner speech. We do however have a lot more annotated written data as we can see in the table below. So we are going to train our model on the CLC corpus and use the labelled test sets (BULATS, NICT) to evaluate it using a metric called [GLEU][gleu-score] which measures performance of grammatical error systems. 
+* NICT-JLE: Manually transcribed oral proficiency tests for Japanese learners.
+* BULATS: Transcriptions of the long free speaking section of [Linguaskill][lingua-skill] Business English test.
 
+### Set up
 
-*	Cambridge Learner Corpus (CLC): range of essay responses to Cambridge Assessments. 
-*	NICT-JLE: Manually transcribed oral proficiency tests for Japanese learners.
-*	BULATS: [Linguaskill][lingua-skill] business English free speaking tests.
+The default parameters of 6 layers, 8 heads and 20\% dropout as described in [Attention is all you need][attention] are used for the transformer. Input words were mapped to randomly initialised word embeddings of dimension 512. The model coded in PyTorch with help from Yiting Lu. All data processing, filtering and grammatical error generation were implemented by me. The Kakao method was implemented following the algorithms shown in [Chloe et Al][kakao]. We use an error dictionary created using the CLC corpus to corrupt Switchboard. The GEC performance metric used in this work is GLEU[gleu-score] which agrees strongly with human evaluated performance of GEC systems. GLEU considers the overlap of n-grams in the correction and the reference. The 5-gram language model that was trained using the [KenLM][ken] toolkit, was used for filtering. The data used for training was un-annotated learner speech taken from BULATS group C-E data that was not part of the evaluation set described previously. 
 
+### Results
+#### Baseline
+We train a model on the CLC and a model on all the written data in table show above to measure the effect of the quantity of data on performance. For reference these models evaluated on an in domain written evaluation set of the CLC (FCE) give a gleu score of 0.691. The results are shown in table below. We see that the model's performance improves only marginally even when 50\% more data is used. 
 
-| Corpus         | Spoken/Written &nbsp; &nbsp; &nbsp; | # Words      |
-| :--------------| :--------------:| ------------:|
-| CLC            | Written         | 14.1M        |
-| BULATS         | Spoken          | 61.9K        |
-| NICT-JLE       | Spoken          | 135.3k       |
+| Model data     | &nbsp; &nbsp; &nbsp; Data size /tokens  | &nbsp; &nbsp; &nbsp; NICT      | &nbsp; &nbsp; &nbsp; BULATS   |
+| :-------------:| ------------------:|---------: |---------:|
+| CLC            | 25M                | 0.475     | 0.493    |
+| CLC + BEA      | 38.7M              | 0.477     | 0.498    |
 
-The model that I’m going to be using is a standard Transformer as mentioned in the [Attention is all you need][attention] paper, coded in Pytorch. I am not going to be using pre-trained word embeddings although they would most likely improve results.
 
 ## Initial Results
 
@@ -97,24 +98,20 @@ The model was trained for 20 epochs using a GPU and then the best epoch was eval
 | CLC            | 25M                | 0.475     | 0.493    |
 | CLC + BEA      | 38.7M              | 0.477     | 0.498    |
 
-## And if we had speech data?
-
-To answer this question we use k-fold cross validation. Fine tuning the CLC and BEA model from before on 80% of the NICT corpus then producing a correction for the other 20%. We do this 5 times then concatenate all the corrections and calculate a GLEU score. We finetune for 3 epochs and then choose the best one. 
+To give a valid comparison for the performance that could be obtained if labelled speech data was available, we apply K-fold cross validation fine-tuning our previous model on the NICT corpus. We split the corpus into 5 folds and concatenate our predictions for each fold before calculating a GLEU score shown in the table below. We note immediately that fine-tuning on speech data gives a drastic increase in performance on our spoken evaluation sets. This provides us with a good estimate for the results that would be obtained for a model trained solely on speech data and motivates data augmentation.
 
 ![texture theme preview](/images/cross_validation.png)
-
-| Model data     | &nbsp; &nbsp; &nbsp; NICT   |
+* Cross validation * 
+| Fine Tuning     | &nbsp; &nbsp; &nbsp; NICT   |
 | :-------------:| ------------------:|
-| CLC + BEA              | 0.477                |
-| CLC + BEA fine-tuned on NICT            | 0.598                |
+| no              | 0.477                |
+| yes            | 0.598                |
 
-We can see a huge improvement in the results. This project will aim to answer the question: can we create augmented data to make up for our lack of speech data. 
+### Grammatical Error Generation
 
-```python
-print('hi there')
-```
+Preliminary experiments showed that filtering by absolute perplexity provided data with the greatest similarity to authentic speech corpora and so it is used in the experiments reported here. The baseline CLC+BEA model is fine-tuned for an additional 3 epochs on 3 different versions of the augmented Switchboard. GLEU scores are shown for the best epoch in table \ref{tab:filtering_results}.
 
-
+Firstly we notice that despite the lower perplexity evaluated by our language model, which showed that Switchboard when augmented resembles our speech test sets more than the written data, fine-tuning results show a decrease or in the case of heavy filtering, a very small increase on BULATS. However, the results clearly show that filtering positively affects our results and that the more we filter the closer the domain of our augmented data to our evaluation data.  
 
 ```scss
 body {
@@ -135,3 +132,4 @@ body {
 [kakao]: https://www.aclweb.org/anthology/W19-4423/
 [knill]: https://ieeexplore.ieee.org/document/8683080
 [clc]:  http://ucrel.lancs.ac.uk/publications/cl2003/papers/nicholls.pdf
+[ken]: https://github.com/kpu/kenlm
