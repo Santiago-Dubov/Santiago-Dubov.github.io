@@ -59,7 +59,7 @@ To carry out filtering we calculate the perplexity of each sentence using equati
 
 ## Experiments
 
-The written corpora are taken from examination scripts and language learning websites: [Cambridge Learner Corpus][clc], [BEA Challenge][bea]: Lang-8, W\&I, LOCNESS. For our experiments punctuation and capitalisation are removed, and spelling errors corrected to match the ASR output format. The spoken corpora are all manually transcribed. Thus, as previously mentioned, we will be using the written corpora to train our baseline model and the labelled spoken data sets (NICT, BULATS) to evaluate its performance. Switchboard is composed of transcriptions of native speaker telephone conversations. 
+The written corpora are taken from examination scripts and language learning websites: [Cambridge Learner Corpus][clc], [BEA Challenge][bea]: Lang-8, W&I, LOCNESS. For our experiments punctuation and capitalisation are removed, and spelling errors corrected to match the ASR output format. The spoken corpora are all manually transcribed. Thus, as previously mentioned, we will be using the written corpora to train our baseline model and the labelled spoken data sets (NICT, BULATS) to evaluate its performance. Switchboard is composed of transcriptions of native speaker telephone conversations. 
 
 |         Corpus       |  Written or Spoken | Data size # tokens | GEC labels | non-native|
 |--------------------| -------------------|---------------------|------------|------------|
@@ -77,7 +77,7 @@ The written corpora are taken from examination scripts and language learning web
 
 ### Set up
 
-The default parameters of 6 layers, 8 heads and 20\% dropout as described in [Attention is all you need][attention] are used for the transformer. Input words were mapped to randomly initialised word embeddings of dimension 512. The model coded in PyTorch with help from Yiting Lu. All data processing, filtering and grammatical error generation were implemented by me. The Kakao method was implemented following the algorithms shown in [Chloe et Al][kakao]. We use an error dictionary created using the CLC corpus to corrupt Switchboard. The GEC performance metric used in this work is GLEU[gleu-score] which agrees strongly with human evaluated performance of GEC systems. GLEU considers the overlap of n-grams in the correction and the reference. The 5-gram language model that was trained using the [KenLM][ken] toolkit, was used for filtering. The data used for training was un-annotated learner speech taken from BULATS group C-E data that was not part of the evaluation set described previously. 
+The default parameters of 6 layers, 8 heads and 20% dropout as described in [Attention is all you need][attention] are used for the transformer. Input words were mapped to randomly initialised word embeddings of dimension 512. The model coded in PyTorch with help from Yiting Lu. All data processing, filtering and grammatical error generation were implemented by me. The Kakao method was implemented following the algorithms shown in [Chloe et Al][kakao]. We use an error dictionary created using the CLC corpus to corrupt Switchboard. The GEC performance metric used in this work is [GLEU][gleu-score] which agrees strongly with human evaluated performance of GEC systems. GLEU considers the overlap of n-grams in the correction and the reference. The 5-gram language model that was trained using the [KenLM][ken] toolkit, was used for filtering. The data used for training was un-annotated learner speech taken from BULATS group C-E data that was not part of the evaluation set described previously. 
 
 ### Results
 #### Baseline
@@ -102,6 +102,7 @@ To give a valid comparison for the performance that could be obtained if labelle
 
 ![texture theme preview](/images/cross_validation.png)
 * Cross validation * 
+
 | Fine Tuning     | &nbsp; &nbsp; &nbsp; NICT   |
 | :-------------:| ------------------:|
 | no              | 0.477                |
