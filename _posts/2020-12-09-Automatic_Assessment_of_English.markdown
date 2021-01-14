@@ -80,7 +80,7 @@ The default parameters of 6 layers, 8 heads and 20% dropout as described in [Att
 
 ### Results
 #### Baseline
-A model was trained on the CLC and another on all the written data in Table \ref{tab:train_setsl} to measure the effect of the quantity of data on performance. For reference these models evaluated on an in domain written evaluation set of the CLC (FCE) give a gleu score of 0.691. The results are presented in the table below. We see that the model's performance improves only marginally even when 50% more data is used. 
+A model was trained on the CLC and another on all the written data (results below) to measure the effect of the quantity of data on performance. For reference these models evaluated on an in domain written evaluation set of the CLC (FCE) give a gleu score of 0.691. The results are presented in the table below. We see that the model's performance improves only marginally even when 50% more data is used. 
 
 | Model data     | &nbsp; &nbsp; &nbsp; Data size /tokens  | &nbsp; &nbsp; &nbsp; NICT      | &nbsp; &nbsp; &nbsp; BULATS   |
 | :-------------:| ------------------:|---------: |---------:|
@@ -91,7 +91,7 @@ A model was trained on the CLC and another on all the written data in Table \ref
 To provide a valid comparison for the performance that could be obtained if labelled speech data was available, we applied K-fold cross validation fine-tuning our previous model on the NICT corpus. We split the corpus into 5 folds and concatenated our predictions for each fold before calculating a GLEU score shown in table \ref{tab:finetuning}. We observed that fine-tuning on speech data yields a drastic increase in performance on the spoken evaluation sets. This provides us with a good estimate for results that would be obtained for a model trained solely on speech data and motivates data augmentation.
 
 ![texture theme preview](/images/cross_validation.png)
-* Cross validation * 
+
 
 | Fine Tuning     | &nbsp; &nbsp; &nbsp; NICT   |
 | :-------------:| ------------------:|
@@ -101,6 +101,26 @@ To provide a valid comparison for the performance that could be obtained if labe
 ### Grammatical Error Generation
 
  Preliminary experiments showed that filtering by absolute perplexity provided data with the greatest similarity to authentic speech corpora, so was used in the experiments reported here. The baseline CLC+BEA model was subsequently fine-tuned for an additional 3 epochs on 3 different versions of the augmented Switchboard. GLEU scores are shown for the best epoch in Table \ref{tab:filtering_results}. Firstly we notice that despite the lower perplexity evaluated by our proposed language model, which showed that Switchboard, when augmented resembles the speech test sets more than the written data, fine-tuning results exhibited a decrease or, in the case of heavy filtering, a very small increase on BULATS. However, the results clearly demonstrate that filtering positively affects our results and that the more we filter the closer the domain of our augmented data to our evaluation data.  
+
+|         Fine tuning       |  Filtering | Perplexity threshold | Data size # tokens | NICT  | BULATS|
+|--------------------| -------------------|---------------------|------------        |-------|-------|
+|         no         |      no           |       N/A            |     37.8M          |  0.477|0.498|
+|        yes       |       no            |       N/A            |     940k           |  0.453|0.490|
+|        yes        |      light         |       250            |     480k           |  0.458| 0.491|
+|        yes       |      medium         |       150            |     194k           |  0.468|0.497|
+|        yes        |      heavy         |       80             |     64.3k          |  0.474|0.504|
+
+GEG appears, at best, provide us with results similar to those obtained by training on a written corpus with no fine-tuning. Two contributing factors may be the cause of this. Firstly, although the native speech corpora contain disfluencies, they are present in both the source and the target and are never corrected. Thus, the model does not learn to filter these out and additionally learns incorrect relationships involving 'normal speech' such as repetition of words being normal.  Secondly, while it is clear that filtering helps to remove unlikely error sequences and obtain an augmented corpus more similar to a learner corpus, it is impossible to fully replicate the distribution and type of errors found in a spoken corpus. Furthermore, the error distribution is specific to each corpus ;therefore we cannot say that the errors should be similar for corpora with different vocabularies dealing with different subjects. To conclude, grammatical error generation can be used to generate errors and make use of native speech corpora for fine-tuning of GEC models with some efficacy but will only ever be an approximation to a natural error process.
+
+### Speech Disfluency Generation
+
+To investigate the effect of disfluencies, they were generated in the CLC corpus and then the corpus was filtered using the language model described previously. A maximum of 2 disfluencies each with a maximum length of 5 tokens were allowed to occur per sentence. E.g, "i need to use my computer to \textbf{do company} do company projects". Results are shown in Table \ref{tab:disfluency_results}. We see that due to the high percentage of disfluencies in NICT, the model improves substantially on the baseline. This initial experiment shows us that disfluency generation can be an effective method of increasing spoken GEC performance. However, as the results on BULATS depict, more work is needed to understand and apply this to all data sets. 
+
+| Model data     | &nbsp; &nbsp; &nbsp; Data size /tokens  | &nbsp; &nbsp; &nbsp; NICT      | &nbsp; &nbsp; &nbsp; BULATS   |
+| :-------------:| ------------------:|---------: |---------:|
+| CLC            | 25M                | 0.475     | 0.493    |
+| CLC + BEA      | 38.7M              | 0.477     | 0.498    |
+
 
 ```scss
 body {
