@@ -10,19 +10,18 @@ Data augmentation is investigated to improve the performance of automatic gramma
 
 ## Motivations 
 
-English is the world's most spoken language with over 1.2 billion speakers and this is only predicted to increase. This, combined with the fact that native speakers are vastly outnumbered by non-native speakers, has led to huge growth in the field of computer assisted language learning giving rise to apps such as Duolingo. These tools allow learners to receive reliable and meaningful feedback on their ability e.g their grammar/pronunciation, in an instantaneous and low cost manner. This feedback can then be used by the learner to improve their level. One of the ways in which feedback can be provided to learners on their speech, is through automated grammatical error correction (GEC). GEC in speech is a challenging problem for a variety of reasons. Firstly, we must use an Automatic Speech Recognition (ASR) system to create a transcription from audio, which can introduce transcription errors. In addition, unlike written language, speech includes disfluencies such as hesitations, repetitions and full sentences are not always used. As annotated speech data is limited, the current GEC and Grammatical Error Detection systems are trained on written data for which large corpora exist [Knill][knill]. Although this provides a good model baseline, these models perform significantly poorer than models which have then been fine-tuned/trained entirely on speech data. 
+English is the world's most spoken language with over 1.2 billion speakers and this Figure is predicted to increase. Combined with the fact that native speakers are vastly outnumbered by non-native speakers, this has led to significant growth in the field of computer assisted language learning, giving rise to apps such as Duolingo. These tools allow learners to receive reliable and meaningful feedback on their ability e.g their grammar/pronunciation, in an instantaneous and low cost manner. This feedback can then be used by the learner to improve their level. One of the ways in which feedback can be provided to learners on their speech is through automated grammatical error correction (GEC). GEC in speech is a challenging problem for a variety of reasons. Firstly, we must use an Automatic Speech Recognition (ASR) system to create a transcription from audio, which can introduce transcription errors. In addition, unlike written language, speech includes disfluencies such as hesitations, repetitions and full sentences are not always used. As annotated speech data is limited, current GEC and Grammatical Error Detection systems are trained on written data for which large corpora exist [Knill][knill]. Although this provides a good model baseline, these models perform significantly more poorly than models which have then been fine-tuned/trained entirely on speech data. 
  
- This project will focus on the augmentation of our existing data sources to better improve our models aimed at correcting grammatical errors in non-native spoken English. Thus, several augmentation techniques are considered to provide us with pseudo speech data to improve performance of GEC systems.
-
+ Therefore, this project will focus on the augmentation of existing data sources to better improve models aimed at correcting grammatical errors in non-native spoken English. Thus, several augmentation techniques are considered, providing pseudo speech data to improve performance of GEC systems.
 
 ## Spoken GEC
 
-Grammatical error correction is the task of correcting a sentence to ensure that it obeys the rules of English grammar. This becomes more difficult when dealing with speech due to disfluencies as mentioned earlier. In spoken GEC a learner's speech is transformed using an ASR system into a written transcript. This is then fed through a deep learning model to produce a grammatically correct sentence which can then be shown to the learner as feedback as shown below. It is important that the model removes or ignores the speech disfluencies such as 's-'.
+Grammatical error correction is the task of correcting a sentence to ensure that it obeys the rules of English grammar. This becomes more difficult when dealing with speech due to disfluencies as mentioned earlier. In spoken GEC a learner's speech is transformed using an ASR system into a written transcript. This transcript is then fed through a deep learning model to produce a grammatically correct sentence which can then be shown to the learner as feedback as shown below. It is important that the model removes or ignores the speech disfluencies such as 's-'.
 
 ![texture theme preview](/images/gec-ede.PNG)
 
 ## Baseline Spoken GEC System
-The system is composed of a deep neural network which in this case is a transformer based on the paper [Attention is all you need][attention]. It is a sequence to sequence deep learning model that uses multihead attention to keep track of long range dependencies and an encoder decoder architecture shown below. Input text is first transformed into vectors known as word embeddings which are then passed into the model. 
+The system is composed of a deep neural network which in this case is a transformer based on the paper [Attention is all you need][attention]. It is a sequence-to-sequence deep learning model that uses multihead attention to keep track of long range dependencies and an encoder-decoder architecture shown below. Input text is first transformed into vectors known as word embeddings which are then passed into the model. 
 
 ![texture theme preview](/images/transformer.png)
 
@@ -81,7 +80,7 @@ The default parameters of 6 layers, 8 heads and 20% dropout as described in [Att
 
 ### Results
 #### Baseline
-We train a model on the CLC and a model on all the written data in table show above to measure the effect of the quantity of data on performance. For reference these models evaluated on an in domain written evaluation set of the CLC (FCE) give a gleu score of 0.691. The results are shown in table below. We see that the model's performance improves only marginally even when 50\% more data is used. 
+A model was trained on the CLC and another on all the written data in Table \ref{tab:train_setsl} to measure the effect of the quantity of data on performance. For reference these models evaluated on an in domain written evaluation set of the CLC (FCE) give a gleu score of 0.691. The results are presented in the table below. We see that the model's performance improves only marginally even when 50% more data is used. 
 
 | Model data     | &nbsp; &nbsp; &nbsp; Data size /tokens  | &nbsp; &nbsp; &nbsp; NICT      | &nbsp; &nbsp; &nbsp; BULATS   |
 | :-------------:| ------------------:|---------: |---------:|
@@ -89,16 +88,7 @@ We train a model on the CLC and a model on all the written data in table show ab
 | CLC + BEA      | 38.7M              | 0.477     | 0.498    |
 
 
-## Initial Results
-
-The model was trained for 20 epochs using a GPU and then the best epoch was evaluated on the unseen spoken test sets BULATS and NICT. We can see below the [GLEU scores][gleu-score] for a model trained on the CLC corpus and a model trained on additional data from the 2019 [BEA task][bea]. Despite using almost 50% more data the improvements are almost negligible in the second model: adding more written data will not improve our model.
-
-| Model data     | &nbsp; &nbsp; &nbsp; Data size /tokens  | &nbsp; &nbsp; &nbsp; NICT      | &nbsp; &nbsp; &nbsp; BULATS   |
-| :-------------:| ------------------:|---------: |---------:|
-| CLC            | 25M                | 0.475     | 0.493    |
-| CLC + BEA      | 38.7M              | 0.477     | 0.498    |
-
-To give a valid comparison for the performance that could be obtained if labelled speech data was available, we apply K-fold cross validation fine-tuning our previous model on the NICT corpus. We split the corpus into 5 folds and concatenate our predictions for each fold before calculating a GLEU score shown in the table below. We note immediately that fine-tuning on speech data gives a drastic increase in performance on our spoken evaluation sets. This provides us with a good estimate for the results that would be obtained for a model trained solely on speech data and motivates data augmentation.
+To provide a valid comparison for the performance that could be obtained if labelled speech data was available, we applied K-fold cross validation fine-tuning our previous model on the NICT corpus. We split the corpus into 5 folds and concatenated our predictions for each fold before calculating a GLEU score shown in table \ref{tab:finetuning}. We observed that fine-tuning on speech data yields a drastic increase in performance on the spoken evaluation sets. This provides us with a good estimate for results that would be obtained for a model trained solely on speech data and motivates data augmentation.
 
 ![texture theme preview](/images/cross_validation.png)
 * Cross validation * 
@@ -110,9 +100,7 @@ To give a valid comparison for the performance that could be obtained if labelle
 
 ### Grammatical Error Generation
 
-Preliminary experiments showed that filtering by absolute perplexity provided data with the greatest similarity to authentic speech corpora and so it is used in the experiments reported here. The baseline CLC+BEA model is fine-tuned for an additional 3 epochs on 3 different versions of the augmented Switchboard. GLEU scores are shown for the best epoch in table \ref{tab:filtering_results}.
-
-Firstly we notice that despite the lower perplexity evaluated by our language model, which showed that Switchboard when augmented resembles our speech test sets more than the written data, fine-tuning results show a decrease or in the case of heavy filtering, a very small increase on BULATS. However, the results clearly show that filtering positively affects our results and that the more we filter the closer the domain of our augmented data to our evaluation data.  
+ Preliminary experiments showed that filtering by absolute perplexity provided data with the greatest similarity to authentic speech corpora, so was used in the experiments reported here. The baseline CLC+BEA model was subsequently fine-tuned for an additional 3 epochs on 3 different versions of the augmented Switchboard. GLEU scores are shown for the best epoch in Table \ref{tab:filtering_results}. Firstly we notice that despite the lower perplexity evaluated by our proposed language model, which showed that Switchboard, when augmented resembles the speech test sets more than the written data, fine-tuning results exhibited a decrease or, in the case of heavy filtering, a very small increase on BULATS. However, the results clearly demonstrate that filtering positively affects our results and that the more we filter the closer the domain of our augmented data to our evaluation data.  
 
 ```scss
 body {
