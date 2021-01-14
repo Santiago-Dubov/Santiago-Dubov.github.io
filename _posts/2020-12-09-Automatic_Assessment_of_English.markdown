@@ -59,6 +59,9 @@ To carry out filtering we calculate the perplexity of each sentence using equati
 
 ## Experiments
 
+The written corpora are taken from examination scripts and language learning websites: [Cambridge Learner Corpus][clc], [BEA Challenge][bea]: Lang-8, W\&I, LOCNESS. For our experiments punctuation and capitalisation are removed, and spelling errors corrected to match the ASR output format. The spoken corpora are all manually transcribed. Thus, as previously mentioned, we will be using the written corpora to train our baseline model and the labelled spoken data sets (NICT, BULATS) to evaluate its performance. Switchboard is composed of transcriptions of native speaker telephone conversations. 
+
+
 To train these large neural networks we require a very high amount of data. Unfortunately, as we need labelled data to train our model such as a corrected version of our transcript, our sources of data are limited – we can’t just pull text from the internet – we need manually annotated learner speech. We do however have a lot more annotated written data as we can see in the table below. So we are going to train our model on the CLC corpus and use the labelled test sets (BULATS, NICT) to evaluate it using a metric called [GLEU][gleu-score] which measures performance of grammatical error systems. 
 
 
@@ -121,3 +124,4 @@ body {
 [roberta]: https://arxiv.org/abs/1907.11692
 [kakao]: https://www.aclweb.org/anthology/W19-4423/
 [knill]: https://ieeexplore.ieee.org/document/8683080
+[clc]:  http://ucrel.lancs.ac.uk/publications/cl2003/papers/nicholls.pdf

@@ -1,11 +1,11 @@
 ---
-author:
-- |
-  Santiago Dubov, Corpus Christi College\
-bibliography:
+layout: post
+title:  "Data Augmentation for Spoken Language Assessment"
+date:   2020-12-20 17:15:11 +0000
+categories: python, Alexa dev
+bibliography: 
 - refs.bib
-date: "Supervisor: Dr K M Knill"
-title:  Data Augmentation for Spoken Language Assessment
+image:  /preview.jpg
 ---
 
 # Introduction
