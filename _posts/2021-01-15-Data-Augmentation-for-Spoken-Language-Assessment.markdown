@@ -1,12 +1,11 @@
 ---
 layout: post
-title:  "Automatic Assessment of Spoken English "
-description: This research project was started in september 2020 and will run until June 2021. It represents 50% of the final grade for my Masters in Computer Engineering.   
-date:   2020-12-09 21:03:36 
+title:  "Data Augmentation for Spoken Language Assessment "
+date:   2021-01-15 21:03:36 
 categories: Python Pytorch UNIX 
 ---
 
-Data augmentation is investigated to improve the performance of automatic grammar error correction using the Transformer model. Notably, using grammatical error generation in native speech corpora and language filtering to create pseudo-speech data. 
+What follows is the Technical Milestone Report completed for my masters project with some minor modifications to increase clarity. The references have also been replaced with hyperlinks for ease of access. This research project was begun in September 2020 and will run until June 2021. It represents 50% of the final grade for my Masters in Computer Engineering. 
 
 ## Motivations 
 
@@ -114,23 +113,21 @@ GEG appears, at best, provide us with results similar to those obtained by train
 
 ### Speech Disfluency Generation
 
-To investigate the effect of disfluencies, they were generated in the CLC corpus and then the corpus was filtered using the language model described previously. A maximum of 2 disfluencies each with a maximum length of 5 tokens were allowed to occur per sentence. E.g, "i need to use my computer to \textbf{do company} do company projects". Results are shown in Table \ref{tab:disfluency_results}. We see that due to the high percentage of disfluencies in NICT, the model improves substantially on the baseline. This initial experiment shows us that disfluency generation can be an effective method of increasing spoken GEC performance. However, as the results on BULATS depict, more work is needed to understand and apply this to all data sets. 
+To investigate the effect of disfluencies, they were generated in the CLC corpus and then the corpus was filtered using the language model described previously. A maximum of 2 disfluencies each with a maximum length of 5 tokens were allowed to occur per sentence.
 
-| Model data     | &nbsp; &nbsp; &nbsp; Data size /tokens  | &nbsp; &nbsp; &nbsp; NICT      | &nbsp; &nbsp; &nbsp; BULATS   |
+ E.g, "i need to use my computer to <strong>do company</strong> do company projects". 
+ 
+ The baseline CLC+BEA model was fine-tuned for an additional 3 epochs on a disfluent version of CLC that had been filtered; the results are shown below. We see that due to the high percentage of disfluencies in NICT, the model improves substantially on the baseline. This initial experiment shows us that disfluency generation can be an effective method of increasing spoken GEC performance. However, as the results on BULATS depict, more work is needed to understand and apply this to all data sets. 
+
+| Fine tuning     | Data size /tokens  |  NICT      |  BULATS   |
 | :-------------:| ------------------:|---------: |---------:|
-| CLC            | 25M                | 0.475     | 0.493    |
-| CLC + BEA      | 38.7M              | 0.477     | 0.498    |
+| No           | 37.8M                | 0.477     | 0.498    |
+| Yes          | 1.6M                  | 0.566     | 0.485    |
 
+### Conclusion
 
-```scss
-body {
-	font-family: 'Nunito Sans', sans-serif;
-	line-height: 1.5em;
-	margin: 0;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-```
+Grammatical error generation enables the use of native speech corpora to provide augmented learner data. However, results perform similarly to models trained on written data as they are unable to handle speech disfluencies. Generating speech disfluencies in written corpora and fine-tuning on this data can lead to large performance increases if the spoken evaluation set is highly disfluent. However, this method has yet to be investigated fully.  Future work will include a detailed investigation into the propagation of speech disfluencies by considering the percentage of the corpus which contains disfluencies as well as disfluency length and number. The effect of filtering on a disfluent corpus will also be considered. Finally, GEG will be carried out on other native speech corpora to verify results found here using Switchboard.
+
 
 [gleu-score]: https://keisuke-sakaguchi.github.io/paper/2015_groundtruth.pdf
 [lingua-skill]: https://www.cambridgeenglish.org/exams-and-tests/linguaskill/
