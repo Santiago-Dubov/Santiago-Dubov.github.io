@@ -52,8 +52,7 @@ then be shown to the learner as feedback (figure
 reference="fig:grammer_correction"}). It is important that the model
 removes or ignores the speech disfluencies such as 's-'.
 
-![End to end spoken GEC
-system](figures/Capture.PNG){#fig:grammer_correction
+![texture theme preview](figures/Capture.PNG){#fig:grammer_correction
 width="\\linewidth"}
 
 # Baseline Spoken GEC system
