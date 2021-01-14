@@ -22,9 +22,10 @@ Grammatical error correction is the task of correcting a sentence to ensure that
 ![texture theme preview](/images/gec-ede.PNG)
 
 ## Baseline Spoken GEC System
-The system is composed of a deep neural network which in this case is a transformer based on the paper [Attention is all you need][attention]. It is a sequence to sequence deep learning model that uses multihead attention to keep track of long range dependencies and an encoder decoder architecture. Input text is first transformed into vectors known as word embeddings which are then passed into the model. 
+The system is composed of a deep neural network which in this case is a transformer based on the paper [Attention is all you need][attention]. It is a sequence to sequence deep learning model that uses multihead attention to keep track of long range dependencies and an encoder decoder architecture shown below. Input text is first transformed into vectors known as word embeddings which are then passed into the model. 
 
-![texture theme preview](/images/transformer.PNG)
+![texture theme preview](/images/transformer.png)
+
 Neural networks require a large amount of labelled data for training. However, labelled speech data is difficult to obtain as each sentence must be transcribed and annotated manually by someone trained in grammatical error correction. While a large amount of work has been done to produce corpora for written GEC, the number of spoken corpora is very limited. Consequently, the baseline model is trained on large written corpora and then evaluated on smaller spoken corpora. It is found that the performance achieved is noticeably lower than a model which has been fine-tuned on speech data. Thus, this motivates the use of augmentation techniques to try to create data that more closely matches speech data using the data resources we have.
 
 ## Data Augmentation
@@ -52,9 +53,7 @@ In some cases, it is possible that an error sequence or disfluency could be gene
 
 The language model that is used here is an n-gram language model which assumes the probability of observing the sentence is given by equation below. Thus, the model gives us a measure of the probability of a sequence given the training data. These models have the advantage that they do not require data with corrections to be trained thus we can use un-annotated learner speech transcriptions. 
 
-<img src="https://i.upmath.me/svg/%20P%5Cleft(w_%7B1%7D%2C%20%5Cldots%2C%20w_%7Bm%7D%5Cright)%3D%5Cprod_%7Bi%3D1%7D%5E%7Bm%7D%20P%5Cleft(w_%7Bi%7D%20%5Cmid%20w_%7B1%7D%2C%20%5Cldots%2C%20w_%7Bi-1%7D%5Cright)%20%5Capprox%20%5Cprod_%7Bi%3D1%7D%5E%7Bm%7D%20P%5Cleft(w_%7Bi%7D%20%5Cmid%20w_%7Bi-(n-1)%7D%2C%20%5Cldots%2C%20w_%7Bi-1%7D%5Cright)" alt=" P\left(w_{1}, \ldots, w_{m}\right)=\prod_{i=1}^{m} P\left(w_{i} \mid w_{1}, \ldots, w_{i-1}\right) \approx \prod_{i=1}^{m} P\left(w_{i} \mid w_{i-(n-1)}, \ldots, w_{i-1}\right)" />
-
-<img src="https://i.upmath.me/svg/PP(W)%20%3D%20%5Cfrac%7B1%7D%7Bp(w_%7B1%7D%2C%5Cdots%2Cw_%7Bm%7D)%7D%5E%7B%5Cfrac%7B1%7D%7BM%7D%7D" alt="PP(W) = \frac{1}{p(w_{1},\dots,w_{m})}^{\frac{1}{M}}" />
+![texture theme preview](/images/perplexity.PNG)
 
 To carry out filtering we calculate the perplexity of each sentence using equation above. Low perplexity indicates the probability distribution is good at predicting the sample. We then have two choices for filtering our sentences, use an absolute threshold of perplexity and only accept sentences below this threshold, or look at the perplexity difference between the augmented source and target sentence. In both cases a high value of perplexity indicates a highly unlikely construction. 
 
