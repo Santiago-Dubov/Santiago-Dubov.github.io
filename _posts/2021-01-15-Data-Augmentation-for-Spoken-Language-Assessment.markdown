@@ -6,7 +6,7 @@ categories: Python Pytorch UNIX
 ---
 
 What follows is the Technical Milestone Report completed for my masters project with some minor modifications to increase clarity. The references have also been replaced with hyperlinks for ease of access. This research project was begun in September 2020 and will run until June 2021. It represents 50% of the final grade for my Masters in Computer Engineering. 
-The original pdf version can be found [here][https://docs.google.com/gview?url=https://github.com/Santiago-Dubov/resume/raw/main/TMR_Dubov_Santiago.pdf&embedded=true].
+The original pdf version can be found [here][pdf].
 
 ## Motivations 
 
@@ -140,3 +140,4 @@ Grammatical error generation enables the use of native speech corpora to provide
 [knill]: https://ieeexplore.ieee.org/document/8683080
 [clc]:  http://ucrel.lancs.ac.uk/publications/cl2003/papers/nicholls.pdf
 [ken]: https://github.com/kpu/kenlm
+[pdf]: https://docs.google.com/gview?url=https://github.com/Santiago-Dubov/resume/raw/main/TMR_Dubov_Santiago.pdf&embedded=true
