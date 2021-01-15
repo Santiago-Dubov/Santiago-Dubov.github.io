@@ -5,7 +5,9 @@ date:   2021-01-15 21:03:36
 categories: Python Pytorch UNIX 
 ---
 
-<li><a href="https://github.com/Santiago-Dubov/santiago-dubov.github.io/blob/master/TMR_Dubov_Santiago.pdf" rel="noopener noreferrer" target="_blank">Open PDF</li>
+<li><a href="https://github.com/Santiago-Dubov/santiago-dubov.github.io/raw/master/TMR_Dubov_Santiago.pdf" rel="noopener noreferrer" target="_blank">Open PDF</li>
+
+<iframe src="https://docs.google.com/gview?url= https://github.com/Santiago-Dubov/santiago-dubov.github.io/raw/master/TMR_Dubov_Santiago.pdf &embedded=true" style="width:100%; height:100%;" frameborder="0"></iframe>
 
 What follows is the Technical Milestone Report completed for my masters project with some minor modifications to increase clarity. The references have also been replaced with hyperlinks for ease of access. This research project was begun in September 2020 and will run until June 2021. It represents 50% of the final grade for my Masters in Computer Engineering. 
 
