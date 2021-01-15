@@ -5,9 +5,8 @@ date:   2021-01-15 21:03:36
 categories: Python Pytorch UNIX 
 ---
 
-<body style="width:100%; height:100%; margin:0;">
-    <iframe src="https://docs.google.com/gview?url= "https://docs.google.com/gview?url= https://github.com/Santiago-Dubov/santiago-dubov.github.io/raw/master/TMR_Dubov_Santiago.pdf" &embedded=true" style="width:100%; height:100%;" frameborder="0"></iframe>
-</body>
+<iframe src="https://docs.google.com/gview?url= "https://docs.google.com/gview?url= https://github.com/Santiago-Dubov/santiago-dubov.github.io/raw/master/TMR_Dubov_Santiago.pdf" &embedded=true" style="width:100%; height:100%;" frameborder="0"></iframe>
+
 
 
 
