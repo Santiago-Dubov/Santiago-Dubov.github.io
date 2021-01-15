@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Data Augmentation for Spoken Language Assessment "
 date:   2021-01-15 21:03:36 
 categories: Python Pytorch UNIX 
